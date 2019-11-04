@@ -8,11 +8,11 @@ cd $src_dir/../..
 # Parameterize
 PYTHON_VERSION=3.6.4
 DIST_DIR="dist"
-BUILDDIR=/tmp/qtum-electrum-build
-PACKAGE="Qtum Electrum"
+BUILDDIR=/tmp/tachacoin-electrum-build
+PACKAGE="Tachacoin Electrum"
 VERSION=`git describe --tags --dirty --always`
-DMG_NAME="${DIST_DIR}/Qtum-electrum-osx-${VERSION}.dmg"
-TEMP_DMG_NAME="$BUILDDIR/qtum-electrum.dmg"
+DMG_NAME="${DIST_DIR}/Tachacoin-electrum-osx-${VERSION}.dmg"
+TEMP_DMG_NAME="$BUILDDIR/tachacoin-electrum.dmg"
 LIBSECP_VERSION="b408c6a8b287003d1ade5709e6f7bc3c7f1d5be7"
 
 #export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;
@@ -148,9 +148,9 @@ done
 info "Building binary"
 APP_SIGN="$APP_SIGN" pyinstaller --noconfirm --ascii --clean --name $VERSION contrib/osx/osx.spec || fail "Could not build binary"
 
-info "Adding qtum URI types to Info.plist"
+info "Adding tachacoin URI types to Info.plist"
 plutil -insert 'CFBundleURLTypes' \
-	-xml '<array><dict> <key>CFBundleURLName</key> <string>qtum</string> <key>CFBundleURLSchemes</key> <array><string>qtum</string></array> </dict></array>' \
+	-xml '<array><dict> <key>CFBundleURLName</key> <string>tachacoin</string> <key>CFBundleURLSchemes</key> <array><string>tachacoin</string></array> </dict></array>' \
 	-- "${DIST_DIR}/${PACKAGE}.app/Contents/Info.plist" \
 	|| fail "Could not add keys to Info.plist. Make sure the program 'plutil' exists and is installed."
 
@@ -171,7 +171,7 @@ rm -rf ${TEMP_DMG_NAME}
 
 openssl dgst -sha256 ${DMG_NAME}
 
-#hdiutil create -fs HFS+ -volname "${PACKAGE}" -srcfolder dist/"${PACKAGE}".app dist/Qtum-electrum-$VERSION.dmg || fail "Could not create .DMG"
+#hdiutil create -fs HFS+ -volname "${PACKAGE}" -srcfolder dist/"${PACKAGE}".app dist/Tachacoin-electrum-$VERSION.dmg || fail "Could not create .DMG"
 #
 #DoCodeSignMaybe ".DMG" "dist/electrum-${VERSION}.dmg" "$APP_SIGN" # If APP_SIGN is empty will be a noop
 #

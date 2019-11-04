@@ -40,8 +40,8 @@ def read_json(filename, default):
     return r
 
 
-GIT_REPO_URL = "https://github.com/qtumproject/qtum-electrum/"
-GIT_REPO_ISSUES_URL = "https://github.com/qtumproject/qtum-electrum/issues"
+GIT_REPO_URL = "https://github.com/tachacoin/tachacoin-electrum/"
+GIT_REPO_ISSUES_URL = "https://github.com/tachacoin/tachacoin-electrum/issues"
 
 
 class AbstractNet:
@@ -59,22 +59,22 @@ class AbstractNet:
         return bytes.fromhex(bitcoin.rev_hex(cls.GENESIS))
 
 
-class QtumMainnet(AbstractNet):
+class TachacoinMainnet(AbstractNet):
 
     TESTNET = False
     WIF_PREFIX = 0x80
     BITCOIN_ADDRTYPE_P2PKH = 0
     BITCOIN_ADDRTYPE_P2SH = 5
-    ADDRTYPE_P2PKH = 0x3a
+    ADDRTYPE_P2PKH = 0x41
     ADDRTYPE_P2SH = 0x32
-    SEGWIT_HRP = "qc"
+    SEGWIT_HRP = "tc"
     GENESIS = "000075aef83cf2853580f8ae8ce6f8c3096cfa21d98334d6e3f95e5582ed986c"
     GENESIS_BITS = 0x1f00ffff
     DEFAULT_PORTS = {'t': '50001', 's': '50002'}
     DEFAULT_SERVERS = read_json('servers.json', {})
     CHECKPOINTS = read_json('checkpoints.json', {})
     BLOCK_HEIGHT_FIRST_LIGHTNING_CHANNELS = 0
-    HEADERS_URL = 'https://s.qtum.site/electrum_headers'
+    HEADERS_URL = 'https://s.tachacoin.tech/electrum_headers'
 
     POS_NO_RETARGET = False
 
@@ -82,14 +82,14 @@ class QtumMainnet(AbstractNet):
     POS_LIMIT = 0x00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     QIP9_POS_LIMIT = 0x0000000000001fffffffffffffffffffffffffffffffffffffffffffffffffff
 
-    QIP5_FORK_HEIGHT = 466600
-    QIP9_FORK_HEIGHT = 466600
+    QIP5_FORK_HEIGHT = 510000
+    QIP9_FORK_HEIGHT = 510000
 
     LN_REALM_BYTE = 0
     LN_DNS_SEEDS = []
 
     # for the 88 and 2301 coin type issue, see https://github.com/satoshilabs/slips/pull/196
-    # Qtum official uses 88 as coin type
+    # Tachacoin official uses 88 as coin type
     BIP44_COIN_TYPE = 88
     SLIP_COIN_TYPE = 2301
 
@@ -112,7 +112,7 @@ class QtumMainnet(AbstractNet):
     XPUB_HEADERS_INV = inv_dict(XPUB_HEADERS)
 
 
-class QtumTestnet(AbstractNet):
+class TachacoinTestnet(AbstractNet):
 
     TESTNET = True
     WIF_PREFIX = 0xef
@@ -161,9 +161,9 @@ class QtumTestnet(AbstractNet):
     XPUB_HEADERS_INV = inv_dict(XPUB_HEADERS)
 
 
-class QtumRegtest(QtumTestnet):
+class TachacoinRegtest(TachacoinTestnet):
 
-    SEGWIT_HRP = "qcrt"
+    SEGWIT_HRP = "tcrt"
     GENESIS = "665ed5b402ac0b44efc37d8926332994363e8a7278b7ee9a58fb972efadae943"
     DEFAULT_SERVERS = read_json('servers_regtest.json', {})
     CHECKPOINTS = {}
@@ -180,19 +180,19 @@ class QtumRegtest(QtumTestnet):
 
 
 # don't import net directly, import the module instead (so that net is singleton)
-net = QtumMainnet
+net = TachacoinMainnet
 
 
 def set_mainnet():
     global net
-    net = QtumMainnet
+    net = TachacoinMainnet
 
 
 def set_testnet():
     global net
-    net = QtumTestnet
+    net = TachacoinTestnet
 
 
 def set_regtest():
     global net
-    net = QtumRegtest
+    net = TachacoinRegtest

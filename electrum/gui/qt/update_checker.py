@@ -19,13 +19,13 @@ from electrum.logging import Logger
 
 
 class UpdateCheck(QWidget, Logger):
-    url = "https://api.github.com/repos/qtumproject/qtum-electrum/releases/latest"
-    download_url = "https://github.com/qtumproject/qtum-electrum/releases/latest"
+    url = "https://api.github.com/repos/tachacoin/tachacoin-electrum/releases/latest"
+    download_url = "https://github.com/tachacoin/tachacoin-electrum/releases/latest"
 
     def __init__(self, main_window, latest_version=None):
         self.main_window = main_window
         QWidget.__init__(self)
-        self.setWindowTitle('Qtum Electrum - ' + _('Update Check'))
+        self.setWindowTitle('Tachacoin Electrum - ' + _('Update Check'))
         self.content = QVBoxLayout()
         self.content.setContentsMargins(*[10] * 4)
 

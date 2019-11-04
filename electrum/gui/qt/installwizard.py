@@ -427,7 +427,7 @@ class InstallWizard(QDialog, MessageBoxMixin, BaseWizard):
         if 'mobile' == self.wallet_type:
             message = ''.join([
                 _('Please enter your seed phrase in order to restore your wallet. \n'),
-                _('This is compatible with qtum mobile wallet. \n')])
+                _('This is compatible with tachacoin mobile wallet. \n')])
         else:
             if self.opt_ext:
                 options.append('ext')

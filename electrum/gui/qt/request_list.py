@@ -168,8 +168,8 @@ class RequestList(MyTreeView):
         if request_type == PR_TYPE_LN:
             menu.addAction(_("Copy Request"), lambda: self.parent.do_copy('Lightning Request', req['invoice']))
         else:
-            menu.addAction(_("Copy Request"), lambda: self.parent.do_copy('Qtum URI', req['URI']))
-            menu.addAction(_("Copy Address"), lambda: self.parent.do_copy('Qtum Address', req['address']))
+            menu.addAction(_("Copy Request"), lambda: self.parent.do_copy('Tachacoin URI', req['URI']))
+            menu.addAction(_("Copy Address"), lambda: self.parent.do_copy('Tachacoin Address', req['address']))
         if 'view_url' in req:
             menu.addAction(_("View in web browser"), lambda: webopen(req['view_url']))
         menu.addAction(_("Delete"), lambda: self.parent.delete_request(key))

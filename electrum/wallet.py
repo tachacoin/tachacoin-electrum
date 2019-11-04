@@ -315,7 +315,7 @@ class Abstract_Wallet(AddressSynchronizer):
             addr = str(addrs[0])
             if not bitcoin.is_address(addr):
                 neutered_addr = addr[:5] + '..' + addr[-2:]
-                raise WalletFileException(f'The addresses in this wallet are not Qtum addresses.\n'
+                raise WalletFileException(f'The addresses in this wallet are not Tacha addresses.\n'
                                           f'e.g. {neutered_addr} (length: {len(addr)})')
 
     def calc_unused_change_addresses(self):
@@ -405,7 +405,7 @@ class Abstract_Wallet(AddressSynchronizer):
         if self.is_watching_only():
             raise Exception(_("This is a watching-only wallet"))
         if not is_address(address):
-            raise Exception(f"Invalid qtum address: {address}")
+            raise Exception(f"Invalid tacha address: {address}")
         if not self.is_mine(address):
             raise Exception(_('Address not in wallet.') + f' {address}')
         index = self.get_address_index(address)
@@ -920,7 +920,7 @@ class Abstract_Wallet(AddressSynchronizer):
         for i, o in enumerate(outputs):
             if o.type == TYPE_ADDRESS:
                 if not is_address(o.address):
-                    raise Exception("Invalid qtum address: {}".format(o.address))
+                    raise Exception("Invalid tacha address: {}".format(o.address))
             if o.value == '!':
                 if i_max is not None:
                     raise Exception("More than one output set to spend max")
@@ -946,7 +946,7 @@ class Abstract_Wallet(AddressSynchronizer):
             # Let the coin chooser select the coins to spend
 
             if sender:
-                coin_chooser = coinchooser.CoinChooserQtum()
+                coin_chooser = coinchooser.CoinChooserTachacoin()
             else:
                 coin_chooser = coinchooser.get_coin_chooser(self.config)
 
@@ -1507,7 +1507,7 @@ class Abstract_Wallet(AddressSynchronizer):
         if req['type'] == PR_TYPE_ONCHAIN:
             addr = req['address']
             if not bitcoin.is_address(addr):
-                raise Exception(_('Invalid qtum address.'))
+                raise Exception(_('Invalid tacha address.'))
             if not self.is_mine(addr):
                 raise Exception(_('Address not in wallet.'))
             key = addr

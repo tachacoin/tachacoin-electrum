@@ -1,7 +1,7 @@
-Qtum Electrum - Lightweight Qtum client
+Tachacoin Electrum - Lightweight Tacha client
 =======================================
 
-Qtum Electrum is a lightweight Qtum wallet forked from `Electrum <https://github.com/spesmilo/electrum>`_.
+Tachacoin Electrum is a lightweight Tacha wallet forked from `Electrum <https://github.com/spesmilo/electrum>`_.
 
 ::
 
@@ -28,7 +28,7 @@ directory. To run Electrum from its root directory, just do::
 
     ./run_electrum
 
-You can also install Electrum on your system, by running this command(qtum-electrum may hava a conflict with bitcoin electrum)::
+You can also install Electrum on your system, by running this command(tachacoin-electrum may hava a conflict with bitcoin electrum)::
 
     sudo apt-get install python3-setuptools
     python3 -m pip install .[fast]
@@ -49,8 +49,8 @@ Development version
 
 Check out the code from GitHub::
 
-    git clone https://github.com/qtumproject/qtum-electrum.git
-    cd qtum-electrum
+    git clone https://github.com/tachacoin/tachacoin-electrum.git
+    cd tachacoin-electrum
     git submodule update --init
 
 Run install (this should install dependencies)::

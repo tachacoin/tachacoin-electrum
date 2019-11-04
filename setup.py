@@ -60,7 +60,7 @@ extras_require['full'] = [pkg for sublist in list(extras_require.values()) for p
 
 
 setup(
-    name="Qtum Electrum",
+    name="Tacha Electrum",
     version=version.ELECTRUM_VERSION,
     python_requires='>={}'.format(MIN_PYTHON_VERSION),
     install_requires=requirements,
@@ -86,10 +86,10 @@ setup(
     },
     scripts=['electrum/electrum'],
     data_files=data_files,
-    description="Lightweight Qtum Wallet",
+    description="Lightweight Tacha Wallet",
     author="CodeFace",
-    author_email="codeface@qtum.info",
+    author_email="tachacoin@gmail.com",
     license="MIT Licence",
-    url="https://qtum.org",
-    long_description="""Lightweight Qtum Wallet""",
+    url="https://tachacoin.tech",
+    long_description="""Lightweight Tacha Wallet""",
 )

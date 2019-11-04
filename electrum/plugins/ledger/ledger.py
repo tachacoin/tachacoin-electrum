@@ -36,7 +36,7 @@ except ImportError:
 
 MSG_NEEDS_FW_UPDATE_GENERIC = _('Firmware version too old. Please update at') + \
                       ' https://www.ledgerwallet.com'
-MSG_NEEDS_FW_UPDATE_SEGWIT = _('Firmware version (or "Qtum" app) too old for Segwit support. Please update at') + \
+MSG_NEEDS_FW_UPDATE_SEGWIT = _('Firmware version (or "Tachacoin" app) too old for Segwit support. Please update at') + \
                       ' https://www.ledgerwallet.com'
 MULTI_OUTPUT_SUPPORT = '1.1.4'
 SEGWIT_SUPPORT = '1.1.10'
@@ -112,7 +112,7 @@ class Ledger_Client():
                 nodeData = self.dongleObject.getWalletPublicKey(prevPath)
             except BTChipException as e:
                 if e.sw == 0x6f04:
-                    raise UserFacingException('Please try using Bitcoin app instead of Qtum')
+                    raise UserFacingException('Please try using Bitcoin app instead of Tachacoin')
                 raise e
             publicKey = compress_public_key(nodeData['publicKey'])
             h = hashlib.new('ripemd160')
@@ -208,7 +208,7 @@ class Ledger_Client():
                 self.perform_hw1_preflight()
             except BTChipException as e:
                 if (e.sw == 0x6d00 or e.sw == 0x6700):
-                    raise UserFacingException(_("Device not in Qtum mode")) from e
+                    raise UserFacingException(_("Device not in Tachacoin mode")) from e
                 raise e
             self.preflightDone = True
 
@@ -410,7 +410,7 @@ class Ledger_KeyStore(Hardware_KeyStore):
             has_change = False
             any_output_on_change_branch = is_any_tx_output_on_change_branch(tx)
             for o in tx.outputs():
-                # assert o.type == TYPE_ADDRESS # qtum diff
+                # assert o.type == TYPE_ADDRESS # tachacoin diff
                 info = tx.output_info.get(o.address)
                 if (info is not None) and len(tx.outputs()) > 1 \
                         and not has_change:

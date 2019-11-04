@@ -190,7 +190,7 @@ class opcodes(IntEnum):
     OP_NOP9 = 0xb8
     OP_NOP10 = 0xb9
 
-    # qtum contract
+    # tachacoin contract
     OP_CREATE = 0xc1
     OP_CALL = 0xc2
     OP_SPEND = 0xc3
@@ -314,7 +314,7 @@ def relayfee(network: 'Network' = None) -> int:
 def dust_threshold(network: 'Network'=None) -> int:
     # Change <= dust threshold is added to the tx fee
     # for Bitcoin DEFAULT_MIN_RELAY_TX_FEE=1000, DUST_RELAY_TX_FEE=3000
-    # for Qtum DEFAULT_MIN_RELAY_TX_FEE=400000, DUST_RELAY_TX_FEE=400000
+    # for Tachacoin DEFAULT_MIN_RELAY_TX_FEE=400000, DUST_RELAY_TX_FEE=400000
     # we don't need plus 3 to relayfee
     return 182 * relayfee(network) // 1000
 
@@ -407,7 +407,7 @@ def script_to_address(script: str, *, net=None) -> str:
 def address_to_script(addr: str, *, net=None) -> str:
     if net is None: net = constants.net
     if not is_address(addr, net=net):
-        raise BitcoinException(f"invalid Qtum address: {addr}")
+        raise BitcoinException(f"invalid Tachacoin address: {addr}")
     witver, witprog = segwit_addr.decode(net.SEGWIT_HRP, addr)
     if witprog is not None:
         if not (0 <= witver <= 16):

@@ -68,11 +68,11 @@ def inv_dict(d):
 ca_path = certifi.where()
 
 
-base_units = {'QTUM':8, 'mQTUM':5, 'bits':2, 'sat':0}
+base_units = {'TACHA':8, 'mTACHA':5, 'bits':2, 'sat':0}
 base_units_inverse = inv_dict(base_units)
-base_units_list = ['QTUM', 'mQTUM', 'bits', 'sat']  # list(dict) does not guarantee order
+base_units_list = ['TACHA', 'mTACHA', 'bits', 'sat']  # list(dict) does not guarantee order
 
-DECIMAL_POINT_DEFAULT = 8  # QTUM
+DECIMAL_POINT_DEFAULT = 8  # TACHA
 
 # types of payment requests
 PR_TYPE_ONCHAIN = 0
@@ -541,11 +541,11 @@ def user_dir():
     if 'ANDROID_DATA' in os.environ:
         return android_data_dir()
     elif os.name == 'posix':
-        return os.path.join(os.environ["HOME"], ".qtum-electrum")
+        return os.path.join(os.environ["HOME"], ".tachacoin-electrum")
     elif "APPDATA" in os.environ:
-        return os.path.join(os.environ["APPDATA"], "Qtum-Electrum")
+        return os.path.join(os.environ["APPDATA"], "Tachacoin-Electrum")
     elif "LOCALAPPDATA" in os.environ:
-        return os.path.join(os.environ["LOCALAPPDATA"], "Qtum-Electrum")
+        return os.path.join(os.environ["LOCALAPPDATA"], "Tachacoin-Electrum")
     else:
         #raise Exception("No home directory found in environment variables.")
         return
@@ -708,18 +708,18 @@ def time_difference(distance_in_time, include_seconds):
         return "over %d years" % (round(distance_in_minutes / 525600))
 
 mainnet_block_explorers = {
-    'qtum.info': ('https://qtum.info/',
+    'explorer.tachacoin.tech': ('https://explorer.tachacoin.tech/tachacoin-explorer/',
                   {'tx': 'tx/', 'addr': 'address/', 'contract': 'contract/'}),
-    'explorer.qtum.org': ('https://explorer.qtum.org/',
+    'explorer.tachacoin.io': ('https://explorer.tachacoin.io/',
                           {'tx': 'tx/', 'addr': 'address/', 'contract': 'contract/'}),
-    'qtumexplorer.io': ('https://qtumexplorer.io/',
+    'extacha.tech': ('https://extacha.tech/',
                         {'tx': 'tx/', 'addr': 'address/', 'contract': 'contract/'}),
 }
 
 testnet_block_explorers = {
-    'qtum.info': ('https://testnet.qtum.info/',
+    'extacha.tech': ('https://testnet.extacha.tech/',
                   {'tx': 'tx/', 'addr': 'address/', 'contract': 'contract/'}),
-    'explorer.qtum.org': ('https://testnet.qtum.org/',
+    'explorer.tachatx.tech': ('https://explorer.tachatx.tech/',
                           {'tx': 'tx/', 'addr': 'address/', 'contract': 'contract/'}),
 }
 
@@ -729,7 +729,7 @@ def block_explorer_info():
 
 def block_explorer(config: 'SimpleConfig') -> str:
     from . import constants
-    default_ = 'qtum.info'
+    default_ = 'explorer.tachacoin.tech'
     be_key = config.get('block_explorer', default_)
     be = block_explorer_info().get(be_key)
     return be_key if be is not None else default_
@@ -746,9 +746,9 @@ def block_explorer_URL(config: 'SimpleConfig', **params) -> Optional[str]:
     addr = params.get('addr')
 
     if token:
-        if 'qtum.org' in be_tuple[0]:
+        if 'explorer.tachacoin.tech/' in be_tuple[0]:
             return "{}/token/{}?a={}".format(be_tuple[0], token, addr)
-        if 'qtum.info' in be_tuple[0]:
+        if 'explorer.tachacoin.io' in be_tuple[0]:
             return "{}address/{}/token-balance?token={}".format(be_tuple[0], addr, token)
 
     url_parts = [be_tuple[0], ]
@@ -777,12 +777,12 @@ def parse_URI(uri: str, on_pr: Callable = None, *, loop=None) -> dict:
 
     if ':' not in uri:
         if not bitcoin.is_address(uri):
-            raise InvalidBitcoinURI("Not a qtum address")
+            raise InvalidBitcoinURI("Not a tacha address")
         return {'address': uri}
 
     u = urllib.parse.urlparse(uri)
-    if u.scheme != 'qtum':
-        raise InvalidBitcoinURI("Not a qtum URI")
+    if u.scheme != 'tachacoin':
+        raise InvalidBitcoinURI("Not a tacha URI")
     address = u.path
 
     # python for android fails to parse query
@@ -799,7 +799,7 @@ def parse_URI(uri: str, on_pr: Callable = None, *, loop=None) -> dict:
     out = {k: v[0] for k, v in pq.items()}
     if address:
         if not bitcoin.is_address(address):
-            raise InvalidBitcoinURI(f"Invalid qtum address: {address}")
+            raise InvalidBitcoinURI(f"Invalid tacha address: {address}")
         out['address'] = address
     if 'amount' in out:
         am = out['amount']
@@ -869,7 +869,7 @@ def create_bip21_uri(addr, amount_sat: Optional[int], message: Optional[str],
             raise Exception(f"illegal key for URI: {repr(k)}")
         v = urllib.parse.quote(v)
         query.append(f"{k}={v}")
-    p = urllib.parse.ParseResult(scheme='qtum', netloc='', path=addr, params='', query='&'.join(query), fragment='')
+    p = urllib.parse.ParseResult(scheme='tachacoin', netloc='', path=addr, params='', query='&'.join(query), fragment='')
     return str(urllib.parse.urlunparse(p))
 
 

@@ -179,7 +179,7 @@ class ElectrumWindow(App):
 
     def on_new_intent(self, intent):
         data = intent.getDataString()
-        if intent.getScheme() == 'qtum':
+        if intent.getScheme() == 'tachacoin':
             self.set_URI(data)
         elif intent.getScheme() == 'lightning':
             self.set_ln_invoice(data)
@@ -386,7 +386,7 @@ class ElectrumWindow(App):
         if is_address(data):
             self.set_URI(data)
             return
-        if data.startswith('qtum:'):
+        if data.startswith('tachacoin:'):
             self.set_URI(data)
             return
         if data.startswith('ln'):

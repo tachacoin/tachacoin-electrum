@@ -461,7 +461,7 @@ class CoinChooserPrivacy(CoinChooserRandom):
         return penalty
 
 
-class CoinChooserQtum(CoinChooserPrivacy):
+class CoinChooserTachacoin(CoinChooserPrivacy):
 
     def make_tx(self, coins, inputs: list, outputs, change_addrs, fee_estimator_vb,
                 dust_threshold, sender=None):

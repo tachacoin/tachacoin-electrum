@@ -2,19 +2,19 @@
 # sudo desktop-file-install electrum.desktop
 
 [Desktop Entry]
-Comment=Lightweight Qtum Client
+Comment=Lightweight Tachacoin Client
 Exec=sh -c "PATH=\"\\$HOME/.local/bin:\\$PATH\"; electrum %u"
-GenericName[en_US]=Qtum Wallet
-GenericName=Qtum Wallet
+GenericName[en_US]=Tachacoin Wallet
+GenericName=Tachacoin Wallet
 Icon=electrum
-Name[en_US]=Electrum Qtum Wallet
-Name=Electrum Qtum Wallet
+Name[en_US]=Electrum Tachacoin Wallet
+Name=Electrum Tachacoin Wallet
 Categories=Finance;Network;
 StartupNotify=true
 StartupWMClass=electrum
 Terminal=false
 Type=Application
-MimeType=x-scheme-handler/qtum;
+MimeType=x-scheme-handler/tachacoin;
 Actions=Testnet;
 
 [Desktop Action Testnet]

@@ -262,7 +262,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
 
         # If the option hasn't been set yet
         if config.get('check_updates') is None:
-            choice = self.question(title="Qtum Electrum - " + _("Enable update check"),
+            choice = self.question(title="Tachacoin Electrum - " + _("Enable update check"),
                                    msg=_("For security reasons we advise that you always use the latest version of Electrum.") + " " +
                                        _("Would you like to be notified when there is a newer version of Electrum available?"))
             config.set_key('check_updates', bool(choice), save=True)
@@ -272,7 +272,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
             # to prevent GC from getting in our way.
             def on_version_received(v):
                 if UpdateCheck.is_newer(v):
-                    self.update_check_button.setText(_("Update to Qtum Electrum {} is available").format(v))
+                    self.update_check_button.setText(_("Update to Tachacoin Electrum {} is available").format(v))
                     self.update_check_button.clicked.connect(lambda: self.show_update_check(v))
                     self.update_check_button.show()
             self._update_check_thread = UpdateCheckThread(self)
@@ -483,7 +483,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
             self.setGeometry(100, 100, 840, 400)
 
     def watching_only_changed(self):
-        name = "Qtum Electrum Testnet" if constants.net.TESTNET else "Qtum Electrum"
+        name = "Tachacoin Electrum Testnet" if constants.net.TESTNET else "Tachacoin Electrum"
         title = '%s %s  -  %s' % (name, ELECTRUM_VERSION,
                                         self.wallet.basename())
         extra = [self.wallet.storage.get('wallet_type', '?')]
@@ -500,8 +500,8 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         if self.wallet.is_watching_only():
             msg = ' '.join([
                 _("This wallet is watching-only."),
-                _("This means you will not be able to spend QTUMs with it."),
-                _("Make sure you own the seed phrase or the private keys, before you request QTUMs to be sent to this wallet.")
+                _("This means you will not be able to spend TACHACOINs with it."),
+                _("Make sure you own the seed phrase or the private keys, before you request TACHACOINs to be sent to this wallet.")
             ])
             self.show_warning(msg, title=_('Watch-only wallet'))
 
@@ -518,7 +518,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         msg = ''.join([
             _("You are in testnet mode."), ' ',
             _("Testnet coins are worthless."), '\n',
-            _("Testnet is separate from the main Qtum network. It is used for testing.")
+            _("Testnet is separate from the main Tachacoin network. It is used for testing.")
         ])
         cb = QCheckBox(_("Don't show this again."))
         cb_checked = False
@@ -554,7 +554,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
                 shutil.copy2(path, new_path)
                 self.show_message(_("A copy of your wallet file was created in")+" '%s'" % str(new_path), title=_("Wallet backup created"))
             except BaseException as reason:
-                self.show_critical(_("Qtum Electrum was unable to copy your wallet file to the specified location.") + "\n" + str(reason), title=_("Unable to create backup"))
+                self.show_critical(_("Tachacoin Electrum was unable to copy your wallet file to the specified location.") + "\n" + str(reason), title=_("Unable to create backup"))
 
     def update_recently_visited(self, filename):
         recent = self.config.get('recently_open', [])
@@ -663,7 +663,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         tools_menu = menubar.addMenu(_("&Tools"))
 
         # Settings / Preferences are all reserved keywords in macOS using this as work around
-        tools_menu.addAction(_("Qtum Electrum preferences") if sys.platform == 'darwin' else _("Preferences"), self.settings_dialog)
+        tools_menu.addAction(_("Tachacoin Electrum preferences") if sys.platform == 'darwin' else _("Preferences"), self.settings_dialog)
         tools_menu.addAction(_("&Network"), lambda: self.gui_object.show_network_dialog(self))
         if self.wallet.has_lightning():
             tools_menu.addAction(_("&Lightning"), self.gui_object.show_lightning_dialog)
@@ -687,7 +687,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         help_menu = menubar.addMenu(_("&Help"))
         help_menu.addAction(_("&About"), self.show_about)
         help_menu.addAction(_("&Check for updates"), self.show_update_check)
-        help_menu.addAction(_("&Official website"), lambda: webopen("https://github.com/qtumproject/qtum-electrum/"))
+        help_menu.addAction(_("&Official website"), lambda: webopen("https://github.com/tachacoin/tachacoin-electrum/"))
         help_menu.addSeparator()
         help_menu.addAction(_("&Documentation"), lambda: webopen("http://docs.electrum.org/")).setShortcut(QKeySequence.HelpContents)
         help_menu.addAction(_("&Report Bug"), self.show_report_bug)
@@ -700,14 +700,14 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         d = self.network.get_donation_address()
         if d:
             host = self.network.get_parameters().host
-            self.pay_to_URI('qtum:%s?message=donation for %s'%(d, host))
+            self.pay_to_URI('tachacoin:%s?message=donation for %s'%(d, host))
         else:
             self.show_error(_('No donation address for this server'))
 
     def show_about(self):
-        QMessageBox.about(self, "Qtum Electrum",
+        QMessageBox.about(self, "Tachacoin Electrum",
                           (_("Version")+" %s" % ELECTRUM_VERSION + "\n\n" +
-                           _("This software is based on Electrum to support Qtum.") + " " +
+                           _("This software is based on Electrum to support Tachacoin.") + " " +
                            _("Electrum's focus is speed, with low resource usage and simplifying Bitcoin.") + " " +
                            _("You do not need to perform regular backups, because your wallet can be "
                               "recovered from a secret phrase that you can memorize or write on paper.") + " " +
@@ -725,7 +725,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
             _("Before reporting a bug, upgrade to the most recent version of Electrum (latest release or git HEAD), and include the version number in your report."),
             _("Try to explain not only what the bug is, but how it occurs.")
          ])
-        self.show_message(msg, title="Qtum Electrum - " + _("Reporting Bugs"), rich_text=True)
+        self.show_message(msg, title="Tachacoin Electrum - " + _("Reporting Bugs"), rich_text=True)
 
     def notify_transactions(self):
         if self.tx_notification_queue.qsize() == 0:
@@ -765,9 +765,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         if self.tray:
             try:
                 # this requires Qt 5.9
-                self.tray.showMessage("Qtum Electrum", message, read_QIcon("electrum_dark_icon"), 20000)
+                self.tray.showMessage("Tachacoin Electrum", message, read_QIcon("electrum_dark_icon"), 20000)
             except TypeError:
-                self.tray.showMessage("Qtum Electrum", message, QSystemTrayIcon.Information, 20000)
+                self.tray.showMessage("Tachacoin Electrum", message, QSystemTrayIcon.Information, 20000)
 
 
 
@@ -1011,8 +1011,8 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         msg = ' '.join([
             _('Expiration date of your request.'),
             _('This information is seen by the recipient if you send them a signed payment request.'),
-            _('Expired requests have to be deleted manually from your list, in order to free the corresponding Qtum addresses.'),
-            _('The qtum address never expires and will always be part of this electrum wallet.'),
+            _('Expired requests have to be deleted manually from your list, in order to free the corresponding Tachacoin addresses.'),
+            _('The tachacoin address never expires and will always be part of this electrum wallet.'),
         ])
         grid.addWidget(HelpLabel(_('Request expires'), msg), 2, 0)
         grid.addWidget(self.expires_combo, 2, 1)
@@ -1239,7 +1239,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         self.amount_e = BTCAmountEdit(self.get_decimal_point)
         self.payto_e = PayToEdit(self)
         msg = _('Recipient of the funds.') + '\n\n'\
-              + _('You may enter a Qtum address, a label from your list of contacts (a list of completions will be proposed), or an alias (email-like address that forwards to a Qtum address)')
+              + _('You may enter a Tachacoin address, a label from your list of contacts (a list of completions will be proposed), or an alias (email-like address that forwards to a Tachacoin address)')
         payto_label = HelpLabel(_('Pay to'), msg)
         grid.addWidget(payto_label, 1, 0)
         grid.addWidget(self.payto_e, 1, 1, 1, -1)
@@ -1283,7 +1283,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         grid.addWidget(self.from_list, 4, 1, 1, -1)
         self.set_pay_from([])
 
-        msg = _('Qtum transactions are in general not free. A transaction fee is paid by the sender of the funds.') + '\n\n'\
+        msg = _('Tachacoin transactions are in general not free. A transaction fee is paid by the sender of the funds.') + '\n\n'\
               + _('The amount of fee can be decided freely by the sender. However, transactions with low fees take more time to be processed.') + '\n\n'\
               + _('A suggested fee is automatically added to this field. You may override it. The suggested fee increases with the size of the transaction.')
         self.fee_e_label = HelpLabel(_('Fee'), msg)
@@ -1683,10 +1683,10 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
 
         for o in outputs:
             if o.address is None:
-                self.show_error(_('Qtum Address is None'))
+                self.show_error(_('Tachacoin Address is None'))
                 return True
             if o.type == TYPE_ADDRESS and not bitcoin.is_address(o.address):
-                self.show_error(_('Invalid Qtum Address'))
+                self.show_error(_('Invalid Tachacoin Address'))
                 return True
             if o.value is None:
                 self.show_error(_('Invalid Amount'))
@@ -2608,7 +2608,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         address  = address.text().strip()
         message = message.toPlainText().strip()
         if not bitcoin.is_address(address):
-            self.show_message(_('Invalid Qtum address.'))
+            self.show_message(_('Invalid Tachacoin address.'))
             return
         if self.wallet.is_watching_only():
             self.show_message(_('This is a watching-only wallet.'))
@@ -2636,7 +2636,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         address  = address.text().strip()
         message = message.toPlainText().strip().encode('utf-8')
         if not bitcoin.is_address(address):
-            self.show_message(_('Invalid Qtum address.'))
+            self.show_message(_('Invalid Tachacoin address.'))
             return
         try:
             # This can throw on invalid base64
@@ -2783,7 +2783,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         if not data:
             return
         # if the user scanned a bitcoin URI
-        if str(data).startswith("qtum:"):
+        if str(data).startswith("tachacoin:"):
             self.pay_to_URI(data)
             return
         # else if the user scanned an offline signed tx
@@ -2964,7 +2964,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         vbox = QVBoxLayout(d)
 
         hbox_top = QHBoxLayout()
-        hbox_top.addWidget(QLabel(_("Warning: Qtum Electrum has issue with sweeping P2PK utxos. \n"
+        hbox_top.addWidget(QLabel(_("Warning: Tachacoin Electrum has issue with sweeping P2PK utxos. \n"
                                 "You'd better use  \"restore wallet\", import your private keys \n"
                                 "and send total balance to another address instead.")))
         hbox_top.addWidget(QLabel(_("Enter private keys:")))

@@ -25,18 +25,18 @@ see [issue #5159](https://github.com/spesmilo/electrum/issues/5159).
 2. Build image
 
     ```
-    $ sudo docker build -t qtum-electrum-appimage-builder-img contrib/build-linux/appimage
+    $ sudo docker build -t tachacoin-electrum-appimage-builder-img contrib/build-linux/appimage
     ```
 
 3. Build binary
 
     ```
     $ sudo docker run -it \
-        --name qtum-electrum-appimage-builder-cont \
+        --name tachacoin-electrum-appimage-builder-cont \
         -v $PWD:/opt/electrum \
         --rm \
         --workdir /opt/electrum/contrib/build-linux/appimage \
-        qtum-electrum-appimage-builder-img \
+        tachacoin-electrum-appimage-builder-img \
         ./build.sh
     ```
 
@@ -46,4 +46,4 @@ see [issue #5159](https://github.com/spesmilo/electrum/issues/5159).
 ## FAQ
 
 ### How can I see what is included in the AppImage?
-Execute the binary as follows: `./Qtum-electrum*.AppImage --appimage-extract`
+Execute the binary as follows: `./Tachacoin-electrum*.AppImage --appimage-extract`

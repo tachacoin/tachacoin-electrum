@@ -137,11 +137,11 @@ class BaseWizard(Logger):
         ])
         wallet_kinds = [
             ('standard',  _("Standard wallet")),
-            ('mobile', _("Qtum mobile wallet compatible")),
-            ('qtcore', _("Qtum Qt Core wallet compatible")),
+            ('mobile', _("Tachacoin mobile wallet compatible")),
+            ('qtcore', _("Tachacoin Qt Core wallet compatible")),
             # ('2fa', _("Wallet with two-factor authentication")),
             ('multisig',  _("Multi-signature wallet")),
-            ('imported',  _("Import Qtum addresses or private keys")),
+            ('imported',  _("Import Tachacoin addresses or private keys")),
         ]
         choices = [pair for pair in wallet_kinds if pair[0] in wallet_types]
         self.choice_dialog(title=title, message=message, choices=choices, run_next=self.on_wallet_type)
@@ -226,8 +226,8 @@ class BaseWizard(Logger):
 
     def import_addresses_or_keys(self):
         v = lambda x: keystore.is_address_list(x) or keystore.is_private_key_list(x, raise_on_error=True)
-        title = _("Import Qtum Addresses")
-        message = _("Enter a list of Qtum addresses (this will create a watching-only wallet), or a list of private keys.")
+        title = _("Import Tachacoin Addresses")
+        message = _("Enter a list of Tachacoin addresses (this will create a watching-only wallet), or a list of private keys.")
         self.add_xpub_dialog(title=title, message=message, run_next=self.on_import,
                              is_valid=v, allow_multi=True, show_wif_help=True)
 
